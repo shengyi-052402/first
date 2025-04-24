@@ -1,8 +1,238 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商后台管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background-color: #e3f2fd;  /* 浅蓝色 */
+            color: #1976d2;  /* 蓝色文字 */
+        }
+        .nav-link {
+            color: #1976d2;  /* 蓝色文字 */
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #1976d2;  /* 蓝色文字 */
+            background-color: #bbdefb;  /* 稍深的浅蓝色 */
+        }
+        .nav-link.active {
+            background-color: #90caf9;  /* 更深的浅蓝色 */
+            color: #1976d2;  /* 蓝色文字 */
+        }
+        .main-content {
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+        }
+        .top-navbar {
+            background-color: #bbdefb;  /* 浅蓝色 */
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            padding: 10px 20px;
+            color: #1976d2;  /* 蓝色文字 */
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e3f2fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1976d2;
+            font-weight: bold;
+            overflow: hidden;
+        }
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="top-navbar">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">电商后台管理系统</h4>
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <img src="../avatar.jpg" alt="用户头像">
+                    </div>
+                    <span>shengyi</span>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    </head>
-    <body>
-    </body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 侧边栏 -->
+            <div class="col-md-2 sidebar p-3">
+                <h3 class="mb-4">管理系统</h3>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#dashboard">数据概览</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">商品管理</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 主要内容区域 -->
+            <div class="col-md-10 main-content">
+                <!-- 数据概览页面 -->
+                <div id="dashboard">
+                    <h2 class="mb-4">数据概览</h2>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">今日销量</h5>
+                                    <h3 class="card-text">52</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">今日收益</h5>
+                                    <h3 class="card-text">¥35,000</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">本月销量</h5>
+                                    <h3 class="card-text">621</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">本月收益</h5>
+                                    <h3 class="card-text">¥5,200,032</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">每日销量趋势</h5>
+                                    <canvas id="dailySalesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">每月销量趋势</h5>
+                                    <canvas id="monthlySalesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商品管理页面 -->
+                <div id="products" style="display: none;">
+                    <h2 class="mb-4">商品管理</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">添加商品</button>
+                                <div class="input-group" style="width: 300px;">
+                                    <input type="text" class="form-control" placeholder="搜索商品">
+                                    <button class="btn btn-outline-secondary">搜索</button>
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>商品ID</th>
+                                        <th>商品名称</th>
+                                        <th>价格</th>
+                                        <th>库存</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productTableBody">
+                                    <!-- 商品列表将通过JavaScript动态添加 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+        // 页面切换逻辑
+        document.querySelectorAll('.nav-link').forEach(link =>{
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                document.querySelectorAll('#dashboard, #products').forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.querySelector(link.getAttribute('href')).style.display = 'block';
+            });
+        });
+
+        // 图表初始化
+        const dailyCtx = document.getElementById('dailySalesChart').getContext('2d');
+        const monthlyCtx = document.getElementById('monthlySalesChart').getContext('2d');
+
+        new Chart(dailyCtx, {
+            type: 'line',
+            data: {
+                labels: ['2025-04-18', '2025-04-19', '2025-04-20', '2025-04-21', '2025-04-22', '2025-04-23', '2025-04-24'],
+                datasets: [{
+                    label: '每日销量',
+                    data: [23, 11, 31, 45, 36, 40, 52],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            }
+        });
+
+        new Chart(monthlyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                datasets: [{
+                    label: '每月销量',
+                    data: [3500000, 4200000, 480000, 5200032, 0, 0],
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                }]
+            }
+        });
+    </script>
+</body>
 </html>
