@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电商后台管理系统</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css" rel="stylesheet">
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <!-- 顶部导航栏 -->
     <nav class="top-navbar">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">电商后台管理系统</h4>
+        <div class="container">
+            <div class="nav-content">
+                <h4>电商后台管理系统</h4>
                 <div class="user-profile">
                     <div class="user-avatar">
                         <img src="../assets/images/avatar.jpg" alt="用户头像">
@@ -24,97 +23,69 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <!-- 侧边栏 -->
-            <div class="col-md-2 sidebar p-3">
-                <h3 class="mb-4">管理系统</h3>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#dashboard">数据概览</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#products">商品管理</a>
-                    </li>
+            <div class="sidebar">
+                <h3>管理系统</h3>
+                <ul class="nav-menu">
+                    <li><a href="#dashboard" class="active">数据概览</a></li>
+                    <li><a href="#products">商品管理</a></li>
                 </ul>
             </div>
 
             <!-- 主要内容区域 -->
-            <div class="col-md-10 main-content">
+            <div class="main-content">
                 <!-- 数据概览页面 -->
                 <div id="dashboard">
-                    <h2 class="mb-4">数据概览</h2>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">今日销量</h5>
-                                    <h3 class="card-text">52</h3>
-                                </div>
-                            </div>
+                    <h2>数据概览</h2>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <h5>今日销量</h5>
+                            <h3>52</h3>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">今日收益</h5>
-                                    <h3 class="card-text">¥35,000</h3>
-                                </div>
-                            </div>
+                        <div class="stat-card">
+                            <h5>今日收益</h5>
+                            <h3>¥35,000</h3>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">本月销量</h5>
-                                    <h3 class="card-text">621</h3>
-                                </div>
-                            </div>
+                        <div class="stat-card">
+                            <h5>本月销量</h5>
+                            <h3>621</h3>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">本月收益</h5>
-                                    <h3 class="card-text">¥5,200,032</h3>
-                                </div>
-                            </div>
+                        <div class="stat-card">
+                            <h5>本月收益</h5>
+                            <h3>¥5,200,032</h3>
                         </div>
                     </div>
                     
-                    <div class="row mt-4">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">每日销量趋势</h5>
-                                    <canvas id="dailySalesChart"></canvas>
-                                </div>
-                            </div>
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h5>每日销量趋势</h5>
+                            <div id="dailySalesChart" class="chart"></div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">每月销量趋势</h5>
-                                    <canvas id="monthlySalesChart"></canvas>
-                                </div>
-                            </div>
+                        <div class="chart-card">
+                            <h5>每月销量趋势</h5>
+                            <div id="monthlySalesChart" class="chart"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 商品管理页面 -->
                 <div id="products" style="display: none;">
-                    <h2 class="mb-4">商品管理</h2>
+                    <h2>商品管理</h2>
                     <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
+                        <div class="card-content">
+                            <div class="action-bar">
                                 <div>
-                                    <button class="btn btn-primary" id="addProductBtn">添加商品</button>
+                                    <button id="addProductBtn" class="btn">添加商品</button>
                                     <input type="file" id="productImage" accept="image/*" style="display: none;">
                                 </div>
-                                <div class="input-group" style="width: 300px;">
-                                    <input type="text" class="form-control" id="searchProduct" placeholder="搜索商品">
-                                    <button class="btn btn-outline-secondary" id="searchBtn">搜索</button>
+                                <div class="search-box">
+                                    <input type="text" id="searchProduct" placeholder="搜索商品">
+                                    <button id="searchBtn">搜索</button>
                                 </div>
                             </div>
-                            <table class="table">
+                            <table class="data-table">
                                 <thead>
                                     <tr>
                                         <th>商品ID</th>
@@ -137,94 +108,103 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <script src="../assets/js/product-manager.js"></script>
     <script>
-        // 页面切换逻辑
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
+        $(document).ready(function() {
+            // 页面切换逻辑
+            $('.nav-menu a').click(function(e) {
                 e.preventDefault();
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
+                $('.nav-menu a').removeClass('active');
+                $(this).addClass('active');
                 
-                document.querySelectorAll('#dashboard, #products').forEach(section => {
-                    section.style.display = 'none';
-                });
-                document.querySelector(link.getAttribute('href')).style.display = 'block';
+                $('#dashboard, #products').hide();
+                $($(this).attr('href')).show();
                 
-                // 当切换到商品管理页面时，更新商品表格
-                if (link.getAttribute('href') === '#products') {
-                    console.log('切换到商品管理页面'); // 调试信息
+                if ($(this).attr('href') === '#products') {
+                    console.log('切换到商品管理页面');
                     if (typeof updateProductTable === 'function') {
                         updateProductTable();
                     } else {
-                        console.error('updateProductTable函数未定义'); // 调试信息
+                        console.error('updateProductTable函数未定义');
                     }
                 }
             });
+
+            // 添加商品按钮点击事件
+            $('#addProductBtn').click(function() {
+                console.log('点击添加商品按钮');
+                if (typeof addProduct === 'function') {
+                    addProduct();
+                } else {
+                    console.error('addProduct函数未定义');
+                    alert('添加商品功能未正确加载，请刷新页面重试');
+                }
+            });
+
+            // 搜索功能
+            $('#searchBtn').click(searchProducts);
+            $('#searchProduct').keypress(function(e) {
+                if (e.which === 13) {
+                    searchProducts();
+                }
+            });
+
+            // 图表初始化
+            initCharts();
         });
 
-        // 添加商品按钮点击事件
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM加载完成'); // 调试信息
-            const addProductBtn = document.getElementById('addProductBtn');
-            if (addProductBtn) {
-                console.log('找到添加商品按钮'); // 调试信息
-                addProductBtn.addEventListener('click', function() {
-                    console.log('点击添加商品按钮'); // 调试信息
-                    if (typeof addProduct === 'function') {
-                        addProduct();
-                    } else {
-                        console.error('addProduct函数未定义'); // 调试信息
-                        alert('添加商品功能未正确加载，请刷新页面重试');
-                    }
-                });
-            } else {
-                console.error('未找到添加商品按钮'); // 调试信息
+        function initCharts() {
+            // 每日销量数据
+            const dailyLabels = ['18日', '19日', '20日', '21日', '22日', '23日', '24日'];
+            const dailyData = [23, 11, 31, 45, 36, 40, 52];
+            
+            // 每月销量数据
+            const monthlyLabels = ['1月', '2月', '3月', '4月', '5月', '6月'];
+            const monthlyData = [3500000, 4200000, 480000, 5200032, 0, 0];
+            
+            // 创建每日销量图表
+            createSimpleChart('#dailySalesChart', dailyData, dailyLabels, '每日销量');
+            
+            // 创建每月销量图表
+            createSimpleChart('#monthlySalesChart', monthlyData, monthlyLabels, '每月销量');
+        }
+
+        function createSimpleChart(container, data, labels, title) {
+            const maxValue = Math.max(...data);
+            const $container = $(container);
+            $container.empty();
+            
+            // 添加网格线
+            const $grid = $('<div>').addClass('chart-grid');
+            for (let i = 0; i < 5; i++) {
+                $grid.append($('<div>').addClass('chart-grid-line'));
             }
-        });
-
-        // 搜索按钮点击事件
-        document.getElementById('searchBtn').addEventListener('click', function() {
-            searchProducts();
-        });
-
-        // 搜索框回车事件
-        document.getElementById('searchProduct').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchProducts();
-            }
-        });
-
-        // 图表初始化
-        const dailyCtx = document.getElementById('dailySalesChart').getContext('2d');
-        const monthlyCtx = document.getElementById('monthlySalesChart').getContext('2d');
-
-        new Chart(dailyCtx, {
-            type: 'line',
-            data: {
-                labels: ['2025-04-18', '2025-04-19', '2025-04-20', '2025-04-21', '2025-04-22', '2025-04-23', '2025-04-24'],
-                datasets: [{
-                    label: '每日销量',
-                    data: [23, 11, 31, 45, 36, 40, 52],
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
-            }
-        });
-
-        new Chart(monthlyCtx, {
-            type: 'bar',
-            data: {
-                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
-                datasets: [{
-                    label: '每月销量',
-                    data: [3500000, 4200000, 480000, 5200032, 0, 0],
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)'
-                }]
-            }
-        });
+            $container.append($grid);
+            
+            // 添加柱状图
+            data.forEach((value, index) => {
+                const height = (value / maxValue) * 100;
+                const $bar = $('<div>').addClass('chart-bar')
+                    .css('height', height + '%')
+                    .attr('title', `${labels[index]}: ${value.toLocaleString()}`);
+                $container.append($bar);
+            });
+            
+            // 添加标签
+            const $labels = $('<div>').addClass('chart-labels');
+            labels.forEach(label => {
+                $labels.append($('<div>').addClass('chart-label').text(label));
+            });
+            $container.after($labels);
+            
+            // 添加动画效果
+            $container.find('.chart-bar').each(function(index) {
+                $(this).css('height', '0');
+                setTimeout(() => {
+                    $(this).css('height', (data[index] / maxValue) * 100 + '%');
+                }, index * 100);
+            });
+        }
     </script>
 </body>
 </html> 
