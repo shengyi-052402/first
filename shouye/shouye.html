@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠鼠商城 - 您的专属购物平台</title>
+    <link rel="stylesheet" href="2.css">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="container">
+            <div class="welcome">欢迎来到鼠鼠商城！</div>
+            <div class="user-actions">
+                登录 | 注册
+                购物车(0)
+            </div>
+        </div>
+    </header>
+    <nav class="main-nav">
+        <div class="container">
+            <div class="logo">
+                <h1>鼠鼠商城</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="搜索商品...">
+                <button>搜索</button>
+            </div>
+            <ul class="nav-links">
+                <li>首页</li>
+                <li>服装</li>
+                <li>电子产品</li>
+                <li>家居</li>
+                <li>食品</li>
+                <li>
+                    <button class="cart-btn" onclick="window.location.href=''">购物车 </button>
+                    </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="slider">
+        <div class="slides"> 
+            <div class="slide active">
+                <div class="slide-content">
+                    <h2>夏季清凉特惠</h2>
+                    <p>全场低至5折起</p >
+                    立即抢购
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-content">
+                    <h2>新品首发</h2>
+                    <p>限时特惠抢先体验</p >
+                    查看详情
+                </div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+        <div class="banner">
+            <div class="banner_pic" id="banner_pic">
+                <div class="pic"><img src="img/ae2781bffa12ed15e16bc3742659b79b61b80d61.jpg" alt=""></div>
+                <div class="pic"><img src="img/f975c7c3b0f86a9ac449ec7d58d3c16bf7f1fc75.jpg" alt=""></div>
+                <div class="pic"><img src="img/u=2786121246,3768009594&fm=253&fmt=auto&app=120&f=JPEG.webp" alt=""></div>
+                <div class="pic"><img src="img/u=2786121246,3768009594&fm=253&fmt=auto&app=120&f=JPEG.webp" alt=""></div>
+            </div>
+            <ol id="button">
+                <li class="but"></li>
+                <li class="but"></li>
+                <li class="but"></li>
+                <li class="but"></li>
+            </ol>
+             </div>
+             <script>
+                window.onload=function(){
+                    var current_index=0;
+                    var timer=window.setInterval(autoChange,5000);
+                    var button_li=document.getElementById("button").getElementsByTagName("li");
+                    var pic_div=document.getElementById("banner_pic").getElementsByTagName("div")
+                    for(var i=0;i<button_li.length;i++){
+                        button_li[i].onmouseover=function(){
+                            if(timer){
+                                clearInterval(timer);
+                            }
+                            for (var j=0;j<pic_div.length;j++){
+                                if(button_li[j]==this){
+                                    cueeent_index=j;
+                                    button_li[j].className="current";
+                                    pic_div[j].className="current";
+                                }else{
+                                    pic_div[j].className="pic";
+                                    button_li[j].className="but";
+                                }
+                            }
+                        }
+                        button_li[i].onmouseout=function(){
+                            timer=setInterval(autoChange,5000);
+                        }
+                    }
+                    function autoChange(){
+                        ++current_index;
+                        if(current_index==button_li.length){
+                            current_index=0;
+                        }
+                        for(var i=0;i<button_li.length;i++){
+                            if(i==current_index){
+                                button_li[i].className="current";
+                                pic_div[i].className="current";
+                            }else{
+                                button_li[i].className="but";
+                                pic_div[i].className="pic";
+                            }
+                        }
+                    }
+                }
+             </script>
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">商品分类</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="img/屏幕截图 2025-04-27 212642.png" alt="工艺藏品">
+                    <h3>工艺藏品</h3>
+                </div>
+                <div class="category-card">
+                    <img src="img/屏幕截图 2025-04-27 213251.png" alt="电子产品">
+                    <h3>电子产品</h3>
+                </div>
+                <div class="category-card">
+                    <img src="img/屏幕截图 2025-04-27 213325.png" alt="工具材料">
+                    <h3>工具材料</h3>
+                </div>
+                <div class="category-card">
+                    <img src="img/屏幕截图 2025-04-27 212733.png" alt="特色首饰">
+                    <h3>特色首饰</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title">热销商品</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="img/屏幕截图 2025-04-27 213703.png" alt="商品1">
+                    <h3>军用便携雷达</h3>
+                    <p class="price">¥2154765.00</p >
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+                <div class="product-card">
+                    <img src="img/屏幕截图 2025-04-27 213713.png" alt="商品2">
+                    <h3>ECMO</h3>
+                    <p class="price">¥2157502.00</p >
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+                <div class="product-card">
+                    <img src="img/屏幕截图 2025-04-27 213722.png" alt="商品3">
+                    <h3>军用炮弹</h3>
+                    <p class="price">¥1459184.00</p >
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+                <div class="product-card">
+                    <img src="img/屏幕截图 2025-04-27 213733.png" alt="商品4">
+                    <h3>主战坦克模型</h3>
+                    <div class="price">¥2142119.00</div >
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="promotions">
+        <div class="container">
+            <h2 class="section-title">限时促销</h2>
+            <div class="promo-banner">
+                <div class="promo-content">
+                    <h3>全场满减</h3>
+                    <p>满299减30 | 满499减80 | 满999减200</p >
+                    <p class="countdown">剩余时间: 23:59:59</p >
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-column">
+                <h4>关于我们</h4>
+                <ul>
+                    <li>成员简介</li>
+                    <li>联系我们</li>
+                    <li>报错</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>客户服务</h4>
+                <ul>
+                    <li>帮助中心</li>
+                    <li>售后服务</li>
+                    <li>配送方式</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>支付方式</h4>
+                <div class="payment-methods">
+                    <img src="img/屏幕截图 2025-04-27 165602.png" alt="支付宝">
+                    <img src="img/屏幕截图 2025-04-27 165607.png" alt="微信支付">
+                    <img src="img/屏幕截图 2025-04-27 165557.png" alt="抖音">
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>关注我们</h4>
+                <div class="social-media">
+                    <img src="img/屏幕截图 2025-04-27 170001.png" alt="QQ">
+                    <img src="img/屏幕截图 2025-04-27 170006.png" alt="微信">
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>2025 101</p >
+        </div>
+    </footer>
+</body>
+</html>
