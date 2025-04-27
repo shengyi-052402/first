@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <script src="jquery-1.12.4.js"></script>
+    <style>
+        body {
+            font-family: "Microsoft Yahei", Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+
+        .cart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+        }
+
+        .cart-header {
+            font-size: 18px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item{
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-checkbox{
+            width: 50px;
+            text-align: center;
+        }
+
+        .item-img{
+            width: 80px;
+            height: 80px;
+            border: 1px solid #eee;
+            margin-right: 10px;
+        }
+
+        .item-info{
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .item-price{
+            width: 120px;
+            color: #ff5000;
+            font-size: 14px;
+        }
+
+        .item-quantity{
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn{
+            width: 24px;
+            height: 24px;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .quantity-input{
+            width: 40px;
+            height: 22px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+        }
+
+        .item-subtotal{
+            width: 120px;
+            color: #ff5000;
+            font-size: 14px;
+        }
+
+        .item-delete{
+            width: 80px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .total-price {
+            color: #ff5000;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            background: #ff5000;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <div class="cart-header">购物车</div>
+        
+        <div class="cart-items">
+            <!-- 单个商品 -->
+            <div class="cart-item">
+                <div class="item-checkbox">
+                    <input type="checkbox" class="item-check" checked>
+                </div>
+                <img src="images/20.jpg" class="item-img">
+                <div class="item-info">
+                    <div>海贼王手办</div>
+                    <div style="color: #999; font-size:12px;">规格：默认</div>
+                </div>
+                <div class="item-price">¥199.00</div>
+                <div class="item-quantity">
+                    <button class="quantity-btn minus">-</button>
+                    <input type="number" class="quantity-input" value="1">
+                    <button class="quantity-btn plus">+</button>
+                </div>
+                <div class="item-subtotal">¥199.00</div>
+                <div class="item-delete">删除</div>
+            </div>
+            <!-- 更多商品... -->
+			<div class="cart-items">
+			            <!-- 商品1 -->
+			            <div class="cart-item">
+			                <div class="item-checkbox">
+			                    <input type="checkbox" class="item-check" checked>
+			                </div>
+			                <img src="https://via.placeholder.com/80x80" class="item-img">
+			                <div class="item-info">
+			                    <div>无线蓝牙耳机 旗舰版</div>
+			                    <div style="color: #999; font-size:12px;">颜色：黑色</div>
+			                </div>
+			                <div class="item-price">¥299.00</div>
+			                <div class="item-quantity">
+			                    <button class="quantity-btn minus">-</button>
+			                    <input type="number" class="quantity-input" value="1">
+			                    <button class="quantity-btn plus">+</button>
+			                </div>
+			                <div class="item-subtotal">¥299.00</div>
+			                <div class="item-delete">删除</div>
+			            </div>
+			
+			            <!-- 商品2 -->
+			            <div class="cart-item">
+			                <div class="item-checkbox">
+			                    <input type="checkbox" class="item-check" checked>
+			                </div>
+			                <img src="https://via.placeholder.com/80x80" class="item-img">
+			                <div class="item-info">
+			                    <div>男士休闲运动鞋</div>
+			                    <div style="color: #999; font-size:12px;">尺码：42</div>
+			                </div>
+			                <div class="item-price">¥458.00</div>
+			                <div class="item-quantity">
+			                    <button class="quantity-btn minus">-</button>
+			                    <input type="number" class="quantity-input" value="2">
+			                    <button class="quantity-btn plus">+</button>
+			                </div>
+			                <div class="item-subtotal">¥916.00</div>
+			                <div class="item-delete">删除</div>
+			            </div>
+			
+			            <!-- 商品3 -->
+			            <div class="cart-item">
+			                <div class="item-checkbox">
+			                    <input type="checkbox" class="item-check" checked>
+			                </div>
+			                <img src="https://via.placeholder.com/80x80" class="item-img">
+			                <div class="item-info">
+			                    <div>智能手表 Pro</div>
+			                    <div style="color: #999; font-size:12px;">版本：尊享版</div>
+			                </div>
+			                <div class="item-price">¥899.00</div>
+			                <div class="item-quantity">
+			                    <button class="quantity-btn minus">-</button>
+			                    <input type="number" class="quantity-input" value="1">
+			                    <button class="quantity-btn plus">+</button>
+			                </div>
+			                <div class="item-subtotal">¥899.00</div>
+			                <div class="item-delete">删除</div>
+			            </div>
+			        </div>
+        
+
+        <div class="cart-footer">
+            <div style="display:flex; align-items:center;">
+                <input type="checkbox" id="check-all" style="margin-right:10px;">全选
+                <div style="margin-left:30px;">合计：<span class="total-price">¥0.00</span></div>
+            </div>
+            <div class="checkout-btn">去结算（0）</div>
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+            // 全选功能
+            $('#check-all').change(function() {
+                $('.item-check').prop('checked', this.checked).trigger('change');
+                updateTotal();
+            });
+
+            // 单选控制全选
+            $('.item-check').change(function() {
+                const allChecked = $('.item-check').length === $('.item-check:checked').length;
+                $('#check-all').prop('checked', allChecked);
+                updateTotal();
+            });
+
+            // 数量加减
+            $('.quantity-btn').click(function(){
+                const $input = $(this).siblings('.quantity-input');
+                let val = parseInt($input.val());
+                
+                if($(this).hasClass('plus')) {
+                    val++;
+                } else {
+                    val = val > 1 ? val - 1 : 1;
+                }
+                
+                $input.val(val);
+                updateSubtotal($(this).closest('.cart-item'));
+                updateTotal();
+            });
+
+            // 输入框修改数量
+            $('.quantity-input').change(function() {
+                let val = parseInt($(this).val()) || 1;
+                $(this).val(val > 1 ? val : 1);
+                updateSubtotal($(this).closest('.cart-item'));
+                updateTotal();
+            });
+
+            // 删除商品
+            $('.item-delete').click(function() {
+                $(this).closest('.cart-item').remove();
+                updateTotal();
+                checkAllStatus();
+            });
+
+            // 更新小计
+            function updateSubtotal(item) {
+                const price = parseFloat(item.find('.item-price').text().replace('¥', ''));
+                const quantity = parseInt(item.find('.quantity-input').val());
+                const subtotal = price * quantity;
+                item.find('.item-subtotal').text('¥' + subtotal.toFixed(2));
+            }
+
+            // 更新总计
+            function updateTotal() {
+                let total = 0;
+                let count = 0;
+                
+                $('.item-check:checked').each(function() {
+                    const item = $(this).closest('.cart-item');
+                    const subtotal = parseFloat(item.find('.item-subtotal').text().replace('¥', ''));
+                    total += subtotal;
+                    count += parseInt(item.find('.quantity-input').val());
+                });
+
+                $('.total-price').text('¥' + total.toFixed(2));
+                $('.checkout-btn').text('去结算（' + count + '）');
+            }
+
+            // 初始化计算
+            $('.cart-item').each(function() {
+                updateSubtotal($(this));
+            });
+            updateTotal();
+        });
+    </script>
+	<script>
+	    // 需要先引入jQuery
+	    $('#gotoCart').click(function() {
+	        window.location.href = 'shopping-cart.html'; // 替换为你的购物车页面路径
+	    });
+	</script>
+</body>
+</html>
