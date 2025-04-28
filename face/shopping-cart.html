@@ -284,6 +284,218 @@
             updateTotal();
         });
     </script>
+	<div class="payment-modal" id="paymentModal">
+	    <div class="payment-content">
+	        <div class="payment-header">
+	            <h3>支付订单</h3>
+	            <span class="close-btn">&times;</span>
+	        </div>
+	        <div class="payment-body">
+	            <div class="amount-info">
+	                <span>订单金额：</span>
+	                <span class="pay-amount">¥0.00</span>
+	            </div>
+	            
+	            <div class="payment-methods">
+	                <label class="method-item active">
+	                    <input type="radio" name="payment" checked>
+	                    <div class="method-logo alipay"></div>
+	                    <span>支付宝</span>
+	                </label>
+	                
+	                <label class="method-item">
+	                    <input type="radio" name="payment">
+	                    <div class="method-logo wechat"></div>
+	                    <span>微信支付</span>
+	                </label>
+	                
+	                <label class="method-item">
+	                    <input type="radio" name="payment">
+	                    <div class="method-logo bank"></div>
+	                    <span>银行卡支付</span>
+	                </label>
+	            </div>
+	            
+	            <div class="payment-form">
+	                <div class="form-group">
+	                    <label>卡号：</label>
+	                    <input type="text" placeholder="请输入卡号">
+	                </div>
+	                <div class="form-group">
+	                    <label>有效期：</label>
+	                    <input type="text" placeholder="MM/YY">
+	                </div>
+	                <div class="form-group">
+	                    <label>CVV：</label>
+	                    <input type="password" placeholder="三位安全码">
+	                </div>
+	            </div>
+	        </div>
+	        <div class="payment-footer">
+	            <button class="confirm-pay">确认支付</button>
+	            <button class="cancel-pay">取消支付</button>
+	        </div>
+	    </div>
+	</div>
+	
+	<style>
+	/* 支付弹窗样式 */
+	.payment-modal {
+	    display: none;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: rgba(0,0,0,0.5);
+	    z-index: 999;
+	}
+	
+	.payment-content {
+	    position: relative;
+	    background: white;
+	    width: 400px;
+	    margin: 50px auto;
+	    border-radius: 8px;
+	    padding: 20px;
+	    animation: modalSlide 0.3s;
+	}
+	
+	@keyframes modalSlide {
+	    from {transform: translateY(-100px); opacity: 0;}
+	    to {transform: translateY(0); opacity: 1;}
+	}
+	
+	.payment-header {
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    border-bottom: 1px solid #eee;
+	    padding-bottom: 15px;
+	}
+	
+	.close-btn {
+	    font-size: 24px;
+	    cursor: pointer;
+	}
+	
+	.amount-info {
+	    margin: 20px 0;
+	    font-size: 18px;
+	}
+	
+	.pay-amount {
+	    color: #ff5000;
+	    font-weight: bold;
+	}
+	
+	.payment-methods {
+	    display: flex;
+	    gap: 15px;
+	    margin: 20px 0;
+	}
+	
+	.method-item {
+	    flex: 1;
+	    border: 2px solid #eee;
+	    padding: 10px;
+	    border-radius: 4px;
+	    cursor: pointer;
+	    transition: all 0.3s;
+	}
+	
+	.method-item.active {
+	    border-color: #ff5000;
+	    background: #fff5f2;
+	}
+	
+	.method-logo {
+	    width: 100px;
+	    height: 100px;
+	    margin: 0 auto 10px;
+	    background-size: contain;
+	}
+	
+	.alipay { background-image: url("/face/images/alipay.png"); }
+	.wechat { background-image: url("/face/images/weixing.png"); }
+	.bank { background-image: url("/face/images/bank.png"); }
+	
+	.payment-form {
+	    margin: 20px 0;
+	}
+	
+	.form-group {
+	    margin-bottom: 15px;
+	}
+	
+	.form-group input {
+	    width: 100%;
+	    padding: 8px;
+	    border: 1px solid #ddd;
+	    border-radius: 4px;
+	}
+	
+	.payment-footer {
+	    text-align: right;
+	    margin-top: 20px;
+	}
+	
+	.confirm-pay, .cancel-pay {
+	    padding: 10px 20px;
+	    margin-left: 10px;
+	    border: none;
+	    border-radius: 4px;
+	    cursor: pointer;
+	}
+	
+	.confirm-pay {
+	    background: #ff5000;
+	    color: white;
+	}
+	
+	.cancel-pay {
+	    background: #eee;
+	}
+	</style>
+	
+	<script>
+	$(function() {
+	    // 原有代码保持不变...
+	    
+	    // 点击去结算按钮显示支付弹窗
+	    $('.checkout-btn').click(function(e) {
+	        e.preventDefault();
+	        const total = parseFloat($('.total-price').text().replace('¥', ''));
+	        $('#paymentModal .pay-amount').text('¥' + total.toFixed(2));
+	        $('#paymentModal').fadeIn();
+	    });
+	
+	    // 关闭弹窗
+	    $('.close-btn, .cancel-pay').click(function() {
+	        $('#paymentModal').fadeOut();
+	    });
+	
+	    // 点击遮罩层关闭
+	    $(document).on('click', function(e) {
+	        if ($(e.target).hasClass('payment-modal')) {
+	            $('#paymentModal').fadeOut();
+				}
+				    });
+				
+				    // 切换支付方式
+				    $('.method-item').click(function() {
+				        $('.method-item').removeClass('active');
+				        $(this).addClass('active');
+				    });
+				
+				    // 模拟支付成功
+				    $('.confirm-pay').click(function() {
+				        $('#paymentModal').fadeOut();
+				        alert('支付成功！订单金额：' + $('.pay-amount').text());
+				        // 这里可以添加实际的支付接口调用
+				    });
+				});
+				</script>
 	<script>
 	    // 需要先引入jQuery
 	    $('#gotoCart').click(function() {
