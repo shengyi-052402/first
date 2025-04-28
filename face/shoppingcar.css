@@ -1,0 +1,102 @@
+body {
+            font-family: "Microsoft Yahei", Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+
+        .cart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+        }
+
+        .cart-header {
+            font-size: 18px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item{
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-checkbox{
+            width: 50px;
+            text-align: center;
+        }
+
+        .item-img{
+            width: 80px;
+            height: 80px;
+            border: 1px solid #eee;
+            margin-right: 10px;
+        }
+
+        .item-info{
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .item-price{
+            width: 120px;
+            color: #ff5000;
+            font-size: 14px;
+        }
+
+        .item-quantity{
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn{
+            width: 24px;
+            height: 24px;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .quantity-input{
+            width: 40px;
+            height: 22px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+        }
+
+        .item-subtotal{
+            width: 120px;
+            color: #ff5000;
+            font-size: 14px;
+        }
+
+        .item-delete{
+            width: 80px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .total-price {
+            color: #ff5000;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            background: #ff5000;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
