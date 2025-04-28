@@ -1,17 +1,29 @@
-// 商品管理相关脚本
-console.log('商品管理脚本已加载'); // 调试信息
 
 // 从本地存储加载商品数据，如果没有则使用空数组
-let products = JSON.parse(localStorage.getItem('products')) || [];
+let products = JSON.parse(localStorage.getItem('products')) || [
+	{
+		id:  1,
+		name: 'avatar',
+		price: 100000000000,
+		stock: 1,
+		status: "在售",
+		image: '../assets/images/avatar2.jpg'
+	},
+	{
+		id:  2,
+		name: '陈逸嘉第一个非洲之心',
+		price: 0,
+		stock: 1,
+		status: "在售",
+		image: '../shouye/img/屏幕截图 2025-04-27 212642.png'
+	},
+];
 
 // 添加商品
 window.addProduct = function() {
-    console.log('addProduct函数被调用'); // 调试信息
-    
+	console.log(1);
     // 获取文件选择器
     const fileInput = document.getElementById('productImage');
-    
-    // 监听文件选择
     fileInput.onchange = function(e) {
         const file = e.target.files[0];
         if (file) {
@@ -22,9 +34,6 @@ window.addProduct = function() {
                 continueAddProduct(imageData);
             };
             reader.readAsDataURL(file);
-        } else {
-            // 如果没有选择图片，使用默认图片
-            continueAddProduct("../assets/images/default-product.jpg");
         }
         // 清除文件选择，以便下次选择同一文件时也能触发change事件
         fileInput.value = '';
