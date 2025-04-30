@@ -74,9 +74,9 @@
 	    background-size: contain;
 	}
 	
-	.alipay { background-image: url("/face/images/alipay.png"); }
-	.wechat { background-image: url("/face/images/weixing.png"); }
-	.bank { background-image: url("/face/images/bank.png"); }
+	.alipay { background-image: url("./images/alipay.png"); }
+	.wechat { background-image: url("./images/weixing.png"); }
+	.bank { background-image: url("./images/bank.png"); }
 	
 	.payment-form {
 	    margin: 20px 0;

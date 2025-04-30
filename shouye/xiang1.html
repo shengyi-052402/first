@@ -20,7 +20,7 @@
 					<input type="number" id="quantity" value="1" min="0"/>
 				</div>
 				<div class="action-buttons">
-					<button id="add-to-cart"onclick="window.location.href='/shopping-cart.html'">加入购物车</button>			
+					<button id="add-to-cart"onclick="window.location.href='../face/shopping-cart.html'">加入购物车</button>			
 				</div>
 		</div>
 		<script>
@@ -28,14 +28,9 @@
 			const quantityInput=document.getElementById('quantity');
 			addToCartButoon.addEventListener('click',function(){
 				const quantity=parseInt(quantityInput.value);
-				if(quantity>0){
-					alert('${quamtity}份商品加入购物车')
-				}else{
-					alert('数量不足')
-				}
 			})
-			</script>
-			
+		</script>
+		<button class="review-btn" data-product="1">查看商品评价</button>
 		<footer class="main-footer">
 				<div class="container">
 					<div class="footer-column">
