@@ -5,110 +5,8 @@
     <meta charset="UTF-8">
     <title>购物车</title>
     <script src="jquery-1.12.4.js"></script>
-    <style>
-        body {
-            font-family: "Microsoft Yahei", Arial, sans-serif;
-            margin: 20px;
-            background: #f5f5f5;
-        }
-
-        .cart-container {
-            background: white;
-            padding: 20px;
-            border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,.1);
-        }
-
-        .cart-header {
-            font-size: 18px;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item{
-            display: flex;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .item-checkbox{
-            width: 50px;
-            text-align: center;
-        }
-
-        .item-img{
-            width: 80px;
-            height: 80px;
-            border: 1px solid #eee;
-            margin-right: 10px;
-        }
-
-        .item-info{
-            flex: 1;
-            margin-right: 20px;
-        }
-
-        .item-price{
-            width: 120px;
-            color: #ff5000;
-            font-size: 14px;
-        }
-
-        .item-quantity{
-            display: flex;
-            align-items: center;
-        }
-
-        .quantity-btn{
-            width: 24px;
-            height: 24px;
-            border: 1px solid #ddd;
-            background: #f8f8f8;
-            cursor: pointer;
-        }
-
-        .quantity-input{
-            width: 40px;
-            height: 22px;
-            text-align: center;
-            border: 1px solid #ddd;
-            margin: 0 5px;
-        }
-
-        .item-subtotal{
-            width: 120px;
-            color: #ff5000;
-            font-size: 14px;
-        }
-
-        .item-delete{
-            width: 80px;
-            color: #999;
-            cursor: pointer;
-        }
-
-        .cart-footer {
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .total-price {
-            color: #ff5000;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .checkout-btn {
-            background: #ff5000;
-            color: white;
-            padding: 10px 30px;
-            border-radius: 2px;
-            cursor: pointer;
-        }
-    </style>
+    <link href="shoppingcar.css" rel="stylesheet" type="text/css">
+	<link href="pay.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="cart-container">
@@ -284,6 +182,97 @@
             updateTotal();
         });
     </script>
+	<div class="payment-modal" id="paymentModal">
+	    <div class="payment-content">
+	        <div class="payment-header">
+	            <h3>支付订单</h3>
+	            <span class="close-btn">&times;</span>
+	        </div>
+	        <div class="payment-body">
+	            <div class="amount-info">
+	                <span>订单金额：</span>
+	                <span class="pay-amount">¥0.00</span>
+	            </div>
+	            
+	            <div class="payment-methods">
+	                <label class="method-item active">
+	                    <input type="radio" name="payment" checked>
+	                    <div class="method-logo alipay"></div>
+	                    <span>支付宝</span>
+	                </label>
+	                
+	                <label class="method-item">
+	                    <input type="radio" name="payment">
+	                    <div class="method-logo wechat"></div>
+	                    <span>微信支付</span>
+	                </label>
+	                
+	                <label class="method-item">
+	                    <input type="radio" name="payment">
+	                    <div class="method-logo bank"></div>
+	                    <span>银行卡支付</span>
+	                </label>
+	            </div>
+	            
+	            <div class="payment-form">
+	                <div class="form-group">
+	                    <label>卡号：</label>
+	                    <input type="text" placeholder="请输入卡号">
+	                </div>
+	                <div class="form-group">
+	                    <label>有效期：</label>
+	                    <input type="text" placeholder="MM/YY">
+	                </div>
+	                <div class="form-group">
+	                    <label>CVV：</label>
+	                    <input type="password" placeholder="三位安全码">
+	                </div>
+	            </div>
+	        </div>
+	        <div class="payment-footer">
+	            <button class="confirm-pay">确认支付</button>
+	            <button class="cancel-pay">取消支付</button>
+	        </div>
+	    </div>
+	</div>
+	<script>
+	$(function() {
+	    // 原有代码保持不变...
+	    
+	    // 点击去结算按钮显示支付弹窗
+	    $('.checkout-btn').click(function(e) {
+	        e.preventDefault();
+	        const total = parseFloat($('.total-price').text().replace('¥', ''));
+	        $('#paymentModal .pay-amount').text('¥' + total.toFixed(2));
+	        $('#paymentModal').fadeIn();
+	    });
+	
+	    // 关闭弹窗
+	    $('.close-btn, .cancel-pay').click(function() {
+	        $('#paymentModal').fadeOut();
+	    });
+	
+	    // 点击遮罩层关闭
+	    $(document).on('click', function(e) {
+	        if ($(e.target).hasClass('payment-modal')) {
+	            $('#paymentModal').fadeOut();
+				}
+				    });
+				
+				    // 切换支付方式
+				    $('.method-item').click(function() {
+				        $('.method-item').removeClass('active');
+				        $(this).addClass('active');
+				    });
+				
+				    // 模拟支付成功
+				    $('.confirm-pay').click(function() {
+				        $('#paymentModal').fadeOut();
+				        alert('支付成功！订单金额：' + $('.pay-amount').text());
+				        // 这里可以添加实际的支付接口调用
+				    });
+				});
+				</script>
 	<script>
 	    // 需要先引入jQuery
 	    $('#gotoCart').click(function() {
