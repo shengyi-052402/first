@@ -19,60 +19,74 @@ let products = JSON.parse(localStorage.getItem('products')) || [
 	},
 ];
 
+// 初始化事件监听器
+function initEventListeners() {
+    // 关闭按钮处理 - 只绑定一次
+    $('#model').find('.close').off('click').click(function() {
+        // 重置表单
+        $('#productName').val('');
+        $('#productPrice').val('');
+        $('#productNum').val('');
+        $('#productImage').val('');
+    $('#model').hide();
+    });
+    
+    // 提交按钮处理 - 只绑定一次
+    $('#readBtn').off('click').click(function() {
+        const name = $('#productName').val();
+        const price = parseFloat($('#productPrice').val());
+        const num = parseInt($('#productNum').val());
+        const product = {
+            id: products.length + 1,
+            name: name,
+            price: price,
+            stock: num,
+            status: "在售",
+            image: window.currentImageData
+        };
+        
+        products.push(product);
+        saveProducts();
+        updateProductTable();
+        
+        // 重置表单
+        $('#productName').val('');
+        $('#productPrice').val('');
+        $('#productNum').val('');
+        $('#productImage').val('');
+        window.currentImageData = null;
+        
+        $('#model').hide();
+
+    });
+}
+
 // 添加商品
 window.addProduct = function() {
-	console.log(1);
-    // 获取文件选择器
+    console.log('显示模态框');
+    console.log('模态框元素:', $('#model'));
+    console.log('模态框class:', $('#model').attr('class'));
+    $('#model').show();
+    console.log('添加show类后class:', $('#model').attr('class'));
+    // 重置图片数据
+    window.currentImageData = null;
+    
+    // 图片选择处理
     const fileInput = document.getElementById('productImage');
     fileInput.onchange = function(e) {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const imageData = e.target.result;
-                // 选择图片后继续填写其他信息
-                continueAddProduct(imageData);
+                window.currentImageData = e.target.result;
             };
             reader.readAsDataURL(file);
         }
-        // 清除文件选择，以便下次选择同一文件时也能触发change事件
         fileInput.value = '';
     };
     
-    // 触发文件选择
-    fileInput.click();
-};
-
-// 继续添加商品的流程
-function continueAddProduct(imageData) {
-    const name = prompt('请输入商品名称');
-    if (!name) return;
-    
-    const price = parseFloat(prompt('请输入商品价格'));
-    if (isNaN(price) || price < 0) {
-        alert('请输入有效的价格');
-        return;
-    }
-    
-    const stock = parseInt(prompt('请输入商品库存'));
-    if (isNaN(stock) || stock < 0) {
-        alert('请输入有效的库存数量');
-        return;
-    }
-    
-    const product = {
-        id: products.length + 1,
-        name: name,
-        price: price,
-        stock: stock,
-        status: "在售",
-        image: imageData
-    };
-    
-    products.push(product);
-    saveProducts(); // 保存到 localStorage
-    updateProductTable();
-    alert('商品添加成功！');
+    // 初始化事件监听器
+    initEventListeners();
 }
 
 // 保存商品数据到本地存储
@@ -130,17 +144,13 @@ window.editProduct = function(id) {
     product.stock = stock;
     
     updateProductTable();
-    alert('商品信息更新成功！');
 }
 
 // 删除商品
 window.deleteProduct = function(id) {
-    if (confirm('确定要删除这个商品吗？')) {
-        products = products.filter(p => p.id !== id);
-        saveProducts(); // 更新 localStorage
-        updateProductTable();
-        alert('商品删除成功！');
-    }
+    products = products.filter(p => p.id !== id);
+    saveProducts(); // 更新 localStorage
+    updateProductTable();
 }
 
 // 搜索商品
@@ -185,31 +195,6 @@ window.toggleProductStatus = function(id) {
         product.status = product.status === '在售' ? '下架' : '在售'; // 切换状态
         saveProducts(); // 更新 localStorage
         updateProductTable(); // 更新表格
-        alert(`商品状态已${product.status === '在售' ? '上架' : '下架'}！`);
-    }
-}
-
-// 图片预览
-function previewImage(input) {
-    const preview = document.getElementById('imagePreview');
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-function previewEditImage(input) {
-    const preview = document.getElementById('editImagePreview');
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-        }
-        reader.readAsDataURL(input.files[0]);
     }
 }
 

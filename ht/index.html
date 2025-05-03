@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电商后台管理系统</title>
     <link href="../assets/css/styles.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../face/jquery-1.12.4.js"></script>
 </head>
 <body>
     <!-- 顶部导航栏 -->
@@ -78,7 +78,6 @@
                             <div class="action-bar">
                                 <div>
                                     <button id="addProductBtn" class="btn">添加商品</button>
-                                    <input type="file" id="productImage" accept="image/*" style="display: none;">
                                 </div>
                                 <div class="search-box">
                                     <input type="text" id="searchProduct" placeholder="搜索商品">
@@ -107,7 +106,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- 好友消息列表 -->
     <section class="message-list">
         <div class="container">
@@ -153,6 +152,18 @@
         </div>
     </section>
 
+    <!-- 模态框 -->
+    <div class="model" id="model" style="display: none;"> 
+        <div class="model-content">
+            <span class="close">&times;</span>
+            <p><span>请输入商品名称</span><input type="text" id="productName"></p> 
+            <p><span>请输入商品价格</span><input type="text" id="productPrice"></p>   
+            <p><span>请输入商品库存</span><input type="text" id="productNum"></p>
+            <p><span>选择商品图片</span><input type="file" id="productImage" accept="image/*" ></p>
+            <button id="readBtn">提交数据</button>    
+        </div>
+     </div>
+
     <script src="../assets/js/product-manager.js"></script>
     <script>
         $(document).ready(function() {
@@ -178,12 +189,8 @@
             // 添加商品按钮点击事件
             $('#addProductBtn').click(function() {
                 console.log('点击添加商品按钮');
-                if (typeof addProduct === 'function') {
                     addProduct();
-                } else {
-                    console.error('addProduct函数未定义');
-                    alert('添加商品功能未正确加载，请刷新页面重试');
-                }
+               
             });
 
             // 搜索功能

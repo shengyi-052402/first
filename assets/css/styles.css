@@ -470,3 +470,76 @@ body {
     line-height: 1.5;
     margin: 0;
 }
+.model {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.model-content {
+    position: relative;
+    background-color: #fff;
+    width: 500px;
+    max-width: 90%;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.model-content .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.model-content .close:hover {
+    color: #333;
+}
+
+.model-content p {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.model-content p input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.model-content p span {
+    width: 200px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+.model-content #readBtn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.model-content #readBtn:hover {
+    background-color: #3949ab;
+}
