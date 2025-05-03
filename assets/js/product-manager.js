@@ -19,33 +19,50 @@ let products = JSON.parse(localStorage.getItem('products')) || [
 	},
 ];
 
+// 全局变量跟踪编辑状态
+window.editingProductId = null;
+
 // 初始化事件监听器
 function initEventListeners() {
-    // 关闭按钮处理 - 只绑定一次
+
     $('#model').find('.close').off('click').click(function() {
         // 重置表单
         $('#productName').val('');
         $('#productPrice').val('');
         $('#productNum').val('');
         $('#productImage').val('');
-    $('#model').hide();
+        window.currentImageData = null;
+        window.editingProductId = null;
+        $('#model').hide();
     });
     
-    // 提交按钮处理 - 只绑定一次
     $('#readBtn').off('click').click(function() {
         const name = $('#productName').val();
         const price = parseFloat($('#productPrice').val());
         const num = parseInt($('#productNum').val());
-        const product = {
-            id: products.length + 1,
-            name: name,
-            price: price,
-            stock: num,
-            status: "在售",
-            image: window.currentImageData
-        };
         
-        products.push(product);
+        if (window.editingProductId) {
+            const product = products.find(p => p.id === window.editingProductId);
+            if (product) {
+                product.name = name;
+                product.price = price;
+                product.stock = num;
+                if (window.currentImageData) {
+                    product.image = window.currentImageData;
+                }
+            }
+        } else {
+            const product = {
+                id: products.length + 1,
+                name: name,
+                price: price,
+                stock: num,
+                status: "在售",
+                image: window.currentImageData
+            };
+            products.push(product);
+        }
+        
         saveProducts();
         updateProductTable();
         
@@ -55,9 +72,9 @@ function initEventListeners() {
         $('#productNum').val('');
         $('#productImage').val('');
         window.currentImageData = null;
+        window.editingProductId = null;
         
         $('#model').hide();
-
     });
 }
 
@@ -122,28 +139,20 @@ window.updateProductTable = function() {
 // 编辑商品
 window.editProduct = function(id) {
     const product = products.find(p => p.id === id);
-    if (!product) return;
     
-    const name = prompt('请输入新的商品名称：', product.name);
-    if (!name) return;
+    window.editingProductId = id;
     
-    const price = parseFloat(prompt('请输入新的商品价格：', product.price));
-    if (isNaN(price)) {
-        alert('请输入有效的价格！');
-        return;
-    }
+    // 预填充表单
+    $('#productName').val(product.name);
+    $('#productPrice').val(product.price);
+    $('#productNum').val(product.stock);
+    window.currentImageData = product.image;
     
-    const stock = parseInt(prompt('请输入新的商品库存：', product.stock));
-    if (isNaN(stock)) {
-        alert('请输入有效的库存数量！');
-        return;
-    }
+    // 显示模态框
+    $('#model').show();
     
-    product.name = name;
-    product.price = price;
-    product.stock = stock;
-    
-    updateProductTable();
+    // 初始化事件监听器
+    initEventListeners();
 }
 
 // 删除商品
