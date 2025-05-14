@@ -4,7 +4,42 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initital - scale=1.0">
 		<link rel="stylesheet" href="3.css"/>
+		<script src="jquery-1.12.4.js"></script>
 		<title>商品详情1</title>
+		<style>
+		/* 弹窗样式 */
+				        .review-modal {
+				            display: none;
+				            position: fixed;
+				            top: 0;
+				            left: 0;
+				            width: 100%;
+				            height: 100%;
+				            background: rgba(0,0,0,0.5);
+				            z-index: 1000;
+				        }
+				        .review-content {
+				            background: white;
+				            width: 400px;
+				            margin: 50px auto;
+				            padding: 20px;
+				            border-radius: 8px;
+				        }
+				        .close-btn {
+				            font-size: 24px;
+				            cursor: pointer;
+				            float: right;
+				        }
+				        .review-item {
+				            margin-top: 15px;
+				        }
+				        .like-btn {
+				            padding: 5px 10px;
+				            background: #f0f0f0;
+				            border: none;
+				            cursor: pointer;
+				        }
+		</style>
 	</head>
 	<body>
 		<div class="product-container">
@@ -30,7 +65,9 @@
 				const quantity=parseInt(quantityInput.value);
 			})
 		</script>
-		<button class="review-btn" data-product="3">查看商品评价</button>
+		<button id="review-btn" style="padding: 10px 20px; background: #ff5000; color: white; border: none;">
+		        查看商品评价
+		    </button>
 		    <footer class="main-footer">
 				<div class="container">
 					<div class="footer-column">
@@ -69,5 +106,46 @@
 					<p>2025 101</p >
 				</div>
 			</footer>
+			<!-- 弹窗结构 -->
+			<div class="review-modal" id="reviewModal">
+			    <div class="review-content">
+			        <div class="review-header">
+			            <h3>商品评价</h3>
+			            <span class="close-btn">&times;</span>
+			        </div>
+			        <div class="review-item">
+			            <img src="img/4.png" class="user-avatar" style="width:50px;height:50px;border-radius:50%;">
+			            <p><strong>盾构</strong></p>
+			            <p>购买的货物没有问题，及时地向上级交完差，感谢鼠鼠</p>
+			            <button class="like-btn">👍 点赞 <span class="like-count">256</span></button>
+			        </div>
+			    </div>
+			</div>
+			
+			<script>
+			// 修正后的JavaScript
+			$(document).ready(function(){
+			    // 显示弹窗
+			    $('#review-btn').click(function(){
+			        $('#reviewModal').fadeIn(); 
+			    });
+			    
+			    // 关闭弹窗
+			    $('.close-btn, .review-modal').click(function(e){
+			        if($(e.target).closest('.review-content').length === 0 || $(e.target).hasClass('close-btn')) {
+			            $('#reviewModal').fadeOut(); 
+						}
+			    });
+			
+			    // 点赞功能
+			    $('body').on('click', '.like-btn', function(){ // 使用事件委托
+			        if(!$(this).hasClass('active')) {
+			            const $count = $(this).find('.like-count'); // 修正变量声明
+			            $count.text(parseInt($count.text()) + 1); // 修正数字计算
+			            $(this).addClass('active');
+			        }
+			    });
+			});
+			</script>
 	</body>
 </html>

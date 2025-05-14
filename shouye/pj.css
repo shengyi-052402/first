@@ -1,0 +1,32 @@
+/* 弹窗样式 */
+		        .review-modal {
+		            display: none;
+		            position: fixed;
+		            top: 0;
+		            left: 0;
+		            width: 100%;
+		            height: 100%;
+		            background: rgba(0,0,0,0.5);
+		            z-index: 1000;
+		        }
+		        .review-content {
+		            background: white;
+		            width: 400px;
+		            margin: 50px auto;
+		            padding: 20px;
+		            border-radius: 8px;
+		        }
+		        .close-btn {
+		            font-size: 24px;
+		            cursor: pointer;
+		            float: right;
+		        }
+		        .review-item {
+		            margin-top: 15px;
+		        }
+		        .like-btn {
+		            padding: 5px 10px;
+		            background: #f0f0f0;
+		            border: none;
+		            cursor: pointer;
+		        }
