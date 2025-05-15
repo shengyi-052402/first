@@ -338,79 +338,52 @@ img {
     list-style: none;
 }
 .banner {
-    width: 1000px;
-    height: 285px;
-    margin: 13px auto 15px auto;
+    width: 1200px; 
+    height: 400px; /
     position: relative;
-    overflow: hidden;
-    display: inline-block;
+    margin:50px auto;
+    overflow: hidde;
 }
 
-.banner .banner_pic .pic {
+.banner_pic {
+    width: 100%;
+    height: 100%;
+}
+
+.pic {
+    width: 100%;
+    height: 100%;
     display: none;
 }
 
-.banner .banner_pic .current {
+.pic.current {
     display: block;
 }
 
-.banner ol {
+#button {
     position: absolute;
+    bottom: 10px; 
     left: 50%;
-    bottom: 6%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); 
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
-.banner ol .but {
-    float: left;
+.button-item {
     width: 10px;
     height: 10px;
-    border: 1px solid #2fafbc;
     border-radius: 50%;
-    margin-right: 12px;
-    text-align: center;
-    line-height: 22px;
-    background: #fff;
-    color: #2fafbc;
-    font-size: 16px;
-    font-weight: bold;
-    opacity: 0.5;
-    cursor: pointer; 
+    background-color: #ccc; 
+    margin: 0 5px;
+    cursor: pointer;
 }
 
-.banner ol .current {
-    background: #2fafbc;
-    color: #fff;
-    opacity: 1;
-    background: #2fafbc;
-    float: left;
-    width: 10px;
-    height: 10px;
-    border: 1px solid #2fafbc;
-    border-radius: 50%;
-    margin-right: 12px;
-    text-align: center;
-    line-height: 22px;
-    font-size: 16px;
-    font-weight: bold;
+.button-item.current {
+    background-color:#fff; 
 }
-.banner{
-    display: inline-block;
-    width: 65%;
-    vertical-align: top;
-    border: none;
-    padding: 10px;
-    height: 500%;
-}
-.slider{
-    display: inline-block;
-    width: 25%;
-    vertical-align: top;
-    border: none;
-    padding: 10px;
-
-}
-.pic{
-    width: 600px;
-    height: 300px;
+.slide{
+	display: inline-block;
 }

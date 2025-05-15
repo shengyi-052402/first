@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>鼠鼠商城 - 您的专属购物平台</title>
+	 <script src="jquery-1.12.4.js"></script>
     <link rel="stylesheet" href="2.css">
 </head>
 <body>
@@ -37,85 +38,54 @@
             </ul>
         </div>
     </nav>
-    <div class="slider">
-        <div class="slides"> 
-            <div class="slide active">
-                <div class="slide-content">
-                    <h2>夏季清凉特惠</h2>
-                    <p>全场低至5折起</p >
-                    立即抢购
-                </div>
-            </div>
-            <div class="slide">
-                <div class="slide-content">
-                    <h2>新品首发</h2>
-                    <p>限时特惠抢先体验</p >
-                    查看详情
-                </div>
-            </div>
-        </div>
         <div class="slider-controls">
             <span class="dot active"></span>
             <span class="dot"></span>
         </div>
     </div>
         <div class="banner">
-            <div class="banner_pic" id="banner_pic">
-                <div class="current"><img src="img/屏幕截图 2025-04-28 235652.png" alt=""></div>
-                <div class="pic"><img src="img/屏幕截图 2025-04-28 235711.png" alt=""></div>
-                <div class="pic"><img src="img/屏幕截图 2025-04-28 235726.png" alt=""></div>
-                <div class="pic"><img src="img/屏幕截图 2025-04-28 235738.png" alt=""></div>
+            <div id="banner_pic">
+                <div class="pic current"><img src="img/屏幕截图 2025-04-28 235652.png" ></div>
+                <div class="pic"><img src="img/屏幕截图 2025-04-28 235711.png" ></div>
+                <div class="pic"><img src="img/屏幕截图 2025-04-28 235726.png" ></div>
+                <div class="pic"><img src="img/屏幕截图 2025-04-28 235738.png" ></div>
             </div>
             <ol id="button">
-                <li class="current"></li>
-                <li class="but"></li>
-                <li class="but"></li>
-                <li class="but"></li>
+                <li class="button-item"></li>
+                <li class="button-item"></li>
+                <li class="button-item"></li>
+                <li class="button-item"></li>
             </ol>
              </div>
              <script>
-                window.onload=function(){
-                    var current_index=0;
-                    var timer=window.setInterval(autoChange,5000);
-                    var button_li=document.getElementById("button").getElementsByTagName("li");
-                    var pic_div=document.getElementById("banner_pic").getElementsByTagName("div")
-                    for(var i=0;i<button_li.length;i++){
-                        button_li[i].onmouseover=function(){
-                            if(timer){
-                                clearInterval(timer);
-                            }
-                            for (var j=0;j<pic_div.length;j++){
-                                if(button_li[j]==this){
-                                    cueeent_index=j;
-                                    button_li[j].className="current";
-                                    pic_div[j].className="current";
-                                }else{
-                                    pic_div[j].className="pic";
-                                    button_li[j].className="but";
-                                }
-                            }
-                        }
-                        button_li[i].onmouseout=function(){
-                            timer=setInterval(autoChange,5000);
-                        }
-                    }
-                    function autoChange(){
-                        ++current_index;
-                        if(current_index==button_li.length){
-                            current_index=0;
-                        }
-                        for(var i=0;i<button_li.length;i++){
-                            if(i==current_index){
-                                button_li[i].className="current";
-                                pic_div[i].className="current";
-                            }else{
-                                button_li[i].className="but";
-                                pic_div[i].className="pic";
-                            }
-                        }
-                    }
-                }
-             </script>
+                     $(function () {
+                         var current_index = 0;
+                         var timer = setInterval(autoChange, 5000);
+                         var button_li = $('#button li');
+                         var pic_div = $('#banner_pic div');
+             
+                         button_li.hover(
+                             function () {
+                                 clearInterval(timer);
+                                 current_index = button_li.index(this);
+                                 button_li.removeClass('current').eq(current_index).addClass('current');
+                                 pic_div.removeClass('current').eq(current_index).addClass('current');
+                             },
+                             function () {
+                                 timer = setInterval(autoChange, 5000);
+                             }
+                         );
+             
+                         function autoChange() {
+                             current_index++;
+                             if (current_index === button_li.length) {
+                                 current_index = 0;
+                             }
+                             button_li.removeClass('current').eq(current_index).addClass('current');
+                             pic_div.removeClass('current').eq(current_index).addClass('current');
+                         }
+                     });
+                 </script>
     <section class="categories">
         <div class="container">
             <h2 class="section-title">商品分类</h2>
